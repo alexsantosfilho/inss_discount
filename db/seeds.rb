@@ -7,3 +7,26 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+10.times do
+  Employee.create!(
+    name: Faker::Name.name,
+    cpf: CPF.generate,
+    birth_date: rand(18..60).years.ago,
+    address: Faker::Address.street_address,
+    city: Faker::Address.city,
+    state: 'SC',
+    cep: '88000-000',
+    phones: Faker::PhoneNumber.phone_number,
+    salary: rand(1000.0..6000.0).round(2),
+    inss_discount: 0
+  )
+end
+
+Employee.find_each do |p|
+  p.update(inss_discount: InssCalculator.calculate(p.salary))
+end
+
+User.find_or_create_by!(email_address: "impulso@email.com") do |user|
+  user.password = "senha1234"
+  user.name = "impulso"
+end
