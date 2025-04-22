@@ -1,13 +1,11 @@
 // app/javascript/controllers/chart_controller.js
-// import { Controller } from "@hotwired/stimulus"
-import Chart from 'chart.js/auto'
-import Chart from "chart.js"
+import { Controller } from "@hotwired/stimulus"
+import Chart from "chart.js/auto"
 
 export default class extends Controller {
   static values = { data: Object }
 
   connect() {
-    console.log('Chart controller connected');
     this.initializeChart()
   }
 

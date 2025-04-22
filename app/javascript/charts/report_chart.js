@@ -12,7 +12,7 @@
 //     data: {
 //       labels: labels,
 //       datasets: [{
-//         label: 'Proponentes per Salary Range',
+//         label: 'employees per Salary Range',
 //         data: data,
 //         backgroundColor: [
 //           '#4e73df',
@@ -33,7 +33,7 @@
 //     }
 //   });
 // });
-import Chart from 'chart.js';
+import Chart from 'chart.js/auto';
 document.addEventListener('DOMContentLoaded', () => {
   const ctx = document.getElementById('salary-chart');
   if (!ctx) return;
@@ -42,6 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   new Chart(ctx, {
     type: 'bar',
-    data: { labels, datasets: [{ label: 'Proponentes por faixa salarial', data: values }] },
+    data: { labels, datasets: [{ label: 'employees por faixa salarial', data: values }] },
   });
 });

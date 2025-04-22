@@ -39,13 +39,9 @@
           <%= form.label :salary, "Salário (R$)", class: "form-label" %>
           <div class="input-group">
             <span class="input-group-text">R$</span>
-            <%= form.number_field :salary, step: 0.01, 
-                  class: "form-control #{'is-invalid' if employee.errors[:salary].any?}",
-                  data: {
-                    action: "input->inss-calculator#calculate",
-                    "inss-calculator-target": "salary"
-                  },
-                  required: true %>
+            <%= form.number_field :salary, step: 0.01, class: "form-control #{'is-invalid' if employee.errors[:salary].any?}", 
+                                data: { action: "input->inss-calculator#calculate", 
+                                        "inss-calculator-target": "salaryInput" }, required: true %>
           </div>
         </div>
 
@@ -53,10 +49,8 @@
           <%= form.label :inss_discount, "Desconto INSS (R$)", class: "form-label" %>
           <div class="input-group">
             <span class="input-group-text">R$</span>
-            <%= form.number_field :inss_discount, step: 0.01, 
-                  class: "form-control",
-                  data: { "inss-calculator-target": "inssDiscount" },
-                  readonly: true %>
+            <%= form.number_field :inss_discount, step: 0.01, class: "form-control", 
+                                data: { "inss-calculator-target": "discountInput" }, readonly: true %>
           </div>
         </div>
       </div>
@@ -66,8 +60,8 @@
           <label class="form-label">Salário Líquido (R$)</label>
           <div class="input-group">
             <span class="input-group-text">R$</span>
-            <input type="number" class="form-control" 
-                   data-inss-calculator-target="netSalary" readonly>
+            <input type="text" class="form-control" 
+                  data-inss-calculator-target="netSalaryInput" readonly>
           </div>
         </div>
       </div>
@@ -118,7 +112,7 @@
       <div class="mb-3">
         <%= form.label :cep, "CEP", class: "form-label" %>
         <%= form.text_field :cep, class: "form-control #{'is-invalid' if employee.errors[:cep].any?}", 
-                          data: { controller: "cep" }, required: true %>
+                              data: { controller: "cep" }, required: true %>
       </div>
     </div>
   </div>
@@ -156,4 +150,4 @@
   </div>
 <% end %>
 
-<%= javascript_importmap_tags %>
+  <%= javascript_include_tag 'controllers/inss_calculator_controller', defer: true %>

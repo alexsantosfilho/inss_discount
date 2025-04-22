@@ -80,7 +80,7 @@ class EmployeesController < ApplicationController
     params.require(:employee).permit(
       :name, :cpf, :birth_date, :salary, :inss_discount,
       :address, :number, :district, :city, :state, :cep,
-      phones_attributes: [ :id, :phone_type, :number, :_destroy ]
+      phones_attributes: [:id, :phone_type, :number, :_destroy]
     )
   end
 end

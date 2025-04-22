@@ -14,7 +14,12 @@
     <%= link_to "Ver Relatório", report_employees_path, class: "btn btn-info" %>
   </div>
 
-
+  <div class="card mb-4">
+    <div class="card-body">
+      <h5 class="card-title">Distribuição Salarial</h5>
+      <canvas id="salaryChart" height="100"></canvas>
+    </div>
+  </div>
 
   <div class="table-responsive">
     <table class="table table-striped">

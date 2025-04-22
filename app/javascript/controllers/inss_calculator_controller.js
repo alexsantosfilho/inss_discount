@@ -1,7 +1,20 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["salary", "inssDiscount", "netSalary"]
+  static targets = ["salaryInput", "discountInput", "netSalaryInput"]
+
+  initialize() {
+    console.log("INSS Calculator inicializado!")
+  }
+
+  connect() {
+    console.log("Elemento conectado:", this.element)
+    console.log("Targets encontrados:", {
+      salary: this.salaryInputTarget,
+      discount: this.discountInputTarget,
+      netSalary: this.netSalaryInputTarget
+    })
+  }
 
   calculate() {
     console.log('Calculando INSS...');
