@@ -1,0 +1,19 @@
+<turbo-frame id="flash">
+  <% if defined?(notice) && notice.present? %>
+    <div id="flash-message" class="alert alert-success" role="alert" data-controller="flash">
+      <%= notice %>
+    </div>
+  <% elsif defined?(alert) && alert.present? %>
+    <div id="flash-message" class="alert alert-danger" role="alert" data-controller="flash">
+      <%= alert %>
+    </div>
+  <% elsif flash[:notice].present? %>
+    <div id="flash-message" class="alert alert-success" role="alert" data-controller="flash">
+      <%= flash[:notice] %>
+    </div>
+  <% elsif flash[:alert].present? %>
+    <div id="flash-message" class="alert alert-danger" role="alert" data-controller="flash">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+</turbo-frame>

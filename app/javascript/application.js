@@ -1,9 +1,5 @@
-// app/javascript/application.js
+// Stimulus setup
+import "controllers"
+import { Chart } from "chart.js"
+window.Chart = Chart
 
-import "@hotwired/turbo-rails"
-import "./controllers"            // prefixo "./" para arquivos locais
-import "bootstrap"                // pacote npm do Bootstrap (já instalado)
-import Chart from "chart.js/auto" // pacote npm do Chart.js
-
-window.Chart = Chart;
-import * as bootstrap from "bootstrap";

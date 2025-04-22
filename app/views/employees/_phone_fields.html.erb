@@ -1,0 +1,18 @@
+<div class="row mb-3" data-nested-form-target="phone">
+  <div class="col-md-4">
+    <%= form.select :phone_type, 
+          [["Pessoal", "personal"], ["Referência", "reference"]],
+          {}, class: "form-select" %>
+  </div>
+  <div class="col-md-6">
+    <%= form.text_field :number, class: "form-control", 
+          placeholder: "(99) 99999-9999",
+          data: { controller: "phone-mask" } %>
+  </div>
+  <div class="col-md-2">
+    <%= form.hidden_field :_destroy %>
+    <button type="button" class="btn btn-outline-danger" data-action="nested-form#remove">
+      <i class="bi bi-trash"></i> Remover
+    </button>
+  </div>
+</div>

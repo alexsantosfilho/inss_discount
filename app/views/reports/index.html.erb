@@ -1,0 +1,40 @@
+<!-- app/views/employees/index.html.erb -->
+<div class="container mt-4">
+  <h1>employees</h1>
+
+  <%= link_to 'New Employee', new_employee_path, class: 'btn btn-primary mb-3' %>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>CPF</th>
+        <th>Salary</th>
+        <th>INSS Discount</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @employees.each do |employee| %>
+        <tr>
+          <td><%= employee.name %></td>
+          <td><%= employee.cpf %></td>
+          <td><%= number_to_currency(employee.salary, unit: 'R$ ') %></td>
+          <td><%= number_to_currency(employee.inss_discount, unit: 'R$ ') %></td>
+          <td><%= link_to 'Show', employee, class: 'btn btn-sm btn-outline-secondary' %></td>
+          <td><%= link_to 'Edit', edit_employee_path(employee), class: 'btn btn-sm btn-outline-secondary' %></td>
+          <td>
+            <%= link_to 'Delete', employee,
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' },
+                        class: 'btn btn-sm btn-outline-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="d-flex justify-content-center">
+    <%= paginate @employees %>
+  </div>
+</div>

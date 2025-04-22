@@ -1,0 +1,23 @@
+  <tr id="<%= dom_id(employee) %>">
+    <td><%= employee.name %></td>
+    <td><%= employee.cpf %></td>
+    <td><%= number_to_currency(employee.salary, unit: 'R$ ') %></td>
+    <td><%= number_to_currency(employee.inss_discount, unit: 'R$ ') %></td>
+    <td><%= link_to 'Ver', employee_path(employee), class: 'btn btn-sm btn-outline-secondary' %></td>
+    <td><%= link_to 'Editar', edit_employee_path(employee), class: 'btn btn-sm btn-outline-secondary' %></td>
+    <td>
+      <%= link_to 'Excluir', employee_path(employee),
+                  method: :delete,
+                  data: { confirm: 'Confirma exclusão?' },
+                  class: 'btn btn-sm btn-outline-danger' %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="7">
+      <%= form_with url: update_salary_employee_path(employee), method: :patch, data: { turbo: false }, class: "d-flex gap-2 align-items-center" do |form| %>
+        <%= form.label :salary, "Novo salário:", class: "mb-0" %>
+        <%= form.number_field :salary, step: 0.01, required: true, class: "form-control w-auto" %>
+        <%= form.submit "Atualizar via job", class: "btn btn-sm btn-outline-success" %>
+      <% end %>
+    </td>
+  </tr>

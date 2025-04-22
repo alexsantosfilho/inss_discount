@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "salary_update_#{employee.id}" do %>
+  <div class="d-flex gap-2 align-items-center">
+    <%= form_with url: update_salary_employee_path(employee), method: :patch, data: { turbo: true } do |form| %>
+      <%= form.label :salary, "Novo salário:", class: "mb-0" %>
+      <%= form.number_field :salary, step: 0.01, required: true, class: "form-control w-auto" %>
+      <%= form.submit "Atualizar via job", class: "btn btn-sm btn-outline-success" %>
+    <% end %>
+    <div id="employee_<%= employee.id %>_status"></div>
+  </div>
+<% end %>

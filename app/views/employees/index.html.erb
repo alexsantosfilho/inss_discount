@@ -1,0 +1,40 @@
+<div class="header">
+  <p>Olá, <%= Current.user.name %></p>
+  <%= button_to "Logout", session_path, method: :delete, class: "btn btn-outline-danger btn-sm" %>
+</div>
+
+<div class="container mt-5">
+  <%= turbo_stream_from "employees" %>
+
+
+  <h1 class="mb-4">Proponentes</h1>
+
+  <div class="d-flex gap-2 mb-4">
+    <%= link_to "Novo Proponente", new_employee_path, class: "btn btn-primary" %>
+    <%= link_to "Ver Relatório", report_employees_path, class: "btn btn-info" %>
+  </div>
+
+
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Salário</th>
+          <th>Desconto INSS</th>
+          <th colspan="3">Ações</th>
+        </tr>
+      </thead>
+      <tbody id="employees">
+        <%= render @employees %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-3">
+    <%= paginate @employees %>
+  </div>
+</div>
+
