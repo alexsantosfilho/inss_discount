@@ -13,10 +13,14 @@
     cpf: CPF.generate,
     birth_date: rand(18..60).years.ago,
     address: Faker::Address.street_address,
+    number: Faker::Address.building_number,
+    district: Faker::Address.community,
     city: Faker::Address.city,
     state: 'SC',
     cep: '88000-000',
-    phones: Faker::PhoneNumber.phone_number,
+    phones_attributes: [
+      { number: Faker::PhoneNumber.phone_number, phone_type: "personal" }
+    ],
     salary: rand(1000.0..6000.0).round(2),
     inss_discount: 0
   )
