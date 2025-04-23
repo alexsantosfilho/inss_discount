@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
     collection do
       get :report
-      get :calculate_inss 
+      get :calculate_inss_discount
     end
   end
 
