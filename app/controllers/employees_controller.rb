@@ -18,7 +18,8 @@ class EmployeesController < ApplicationController
     if @employee.save
       redirect_to employees_path, notice: "Proponente criado com sucesso."
     else
-      render :new
+      flash.now[:alert] = "Erro ao salvar: #{@employee.errors.full_messages.join(', ')}"
+      render :new, status: :unprocessable_entity  # Status 422 para Turbo Stream
     end
   end
 
@@ -54,6 +55,7 @@ class EmployeesController < ApplicationController
   end
 
   def update_salary
+    @employee = Employee.find(params[:id])
     respond_to do |format|
       format.html do
         redirect_to employees_path, notice: "Salário em atualização via job..."
@@ -62,7 +64,7 @@ class EmployeesController < ApplicationController
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.replace(
-            "employee_#{@employee.id}_status",
+            "employee_#{@employee.id}",
             partial: "employees/status_processing",
             locals: { employee: @employee }
           )

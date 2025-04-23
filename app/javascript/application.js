@@ -10,6 +10,7 @@ window.Stimulus = application
 import "./controllers"
 import "./employees/report_chart"
 import "./controllers/inss_calculator_controller"
+// import "./charts/report_chart"
 // Bootstrap (com Popper)
 import "@popperjs/core"
 import "bootstrap"

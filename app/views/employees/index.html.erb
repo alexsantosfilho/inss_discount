@@ -3,22 +3,16 @@
   <%= button_to "Logout", session_path, method: :delete, class: "btn btn-outline-danger btn-sm" %>
 </div>
 
+<%= render "shared/flash" %>
+
 <div class="container mt-5">
   <%= turbo_stream_from "employees" %>
-
 
   <h1 class="mb-4">Proponentes</h1>
 
   <div class="d-flex gap-2 mb-4">
     <%= link_to "Novo Proponente", new_employee_path, class: "btn btn-primary" %>
     <%= link_to "Ver Relatório", report_employees_path, class: "btn btn-info" %>
-  </div>
-
-  <div class="card mb-4">
-    <div class="card-body">
-      <h5 class="card-title">Distribuição Salarial</h5>
-      <canvas id="salaryChart" height="100"></canvas>
-    </div>
   </div>
 
   <div class="table-responsive">

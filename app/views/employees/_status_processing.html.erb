@@ -1,3 +1,11 @@
-<div id="employee_<%= employee.id %>_status" class="status-processing">
-  <p>Atualizando salário... <%= image_tag('spinner.gif', alt: 'Carregando...', class: 'spinner') %></p>
-</div>
+<tr id="<%= dom_id(employee) %>">
+  <td><%= employee.name %></td>
+  <td><%= employee.cpf %></td>
+  <td colspan="5" class="text-center">
+    <div class="status-processing">
+      <p>Atualizando salário... 
+        <%= image_tag('spinner.gif', alt: 'Carregando...', class: 'spinner', style: 'width: 20px; height: 20px;') %>
+      </p>
+    </div>
+  </td>
+</tr>

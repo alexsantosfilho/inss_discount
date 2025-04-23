@@ -9,5 +9,9 @@ application.register("chart", ChartController)
 
 import INSSCalculatorController from "./inss_calculator_controller"
 application.register("inss-calculator", INSSCalculatorController)
+import FlashController from "./flash_controller"
+application.register("flash", FlashController)
+import nestedFormController from "./nested_form_controller"
+application.register("nested-form", nestedFormController)
 const { Chart, registerables } = await import('chart.js');
 Chart.register(...registerables);
