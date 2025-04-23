@@ -43,10 +43,14 @@ class EmployeesController < ApplicationController
     puts @ranges_data.inspect
   end
 
-  def calculate_inss
+  def calculate_inss_discount
     salary = params[:salary].to_f
-    discount = Inss::CalculationService.call(salary)
-    render json: { discount: discount }
+    inss_discount = Inss::CalculationService.call(salary)
+
+    render json: {
+      inss_discount: inss_discount,
+      net_salary: salary - inss_discount
+    }
   end
 
   def update_salary
@@ -80,7 +84,7 @@ class EmployeesController < ApplicationController
     params.require(:employee).permit(
       :name, :cpf, :birth_date, :salary, :inss_discount,
       :address, :number, :district, :city, :state, :cep,
-      phones_attributes: [:id, :phone_type, :number, :_destroy]
+      phones_attributes: [ :id, :phone_type, :number, :_destroy ]
     )
   end
 end
