@@ -101,6 +101,20 @@ Aplicação Rails 8 completa para gestão de proponentes com cálculo automátic
    ```bash
    bin/dev
    ```
+### Telas:
+
+1 - Login
+![image](https://github.com/user-attachments/assets/9f90330a-b072-400b-90b1-154aab4177ae)
+http://localhost:3000/session/new
+
+2 - Lista de proponentes com atualização de salário(Via job) com paginação, websocket, Turbo Streams...
+![image](https://github.com/user-attachments/assets/06b7229d-2112-4dd0-bf80-2b8c93f12f36)
+
+3 - Tela de cadastro com ajax(XHR)
+![image](https://github.com/user-attachments/assets/99eb0932-9ffd-4897-8e7c-c367cb24e49a)
+
+4 - Tela Relatório(chart.js)
+![image](https://github.com/user-attachments/assets/79dadf96-680e-44fb-a5f9-da6ca2e4414f)
 
 
 ### Cálculo de INSS com Turbo Streams
