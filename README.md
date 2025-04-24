@@ -2,7 +2,7 @@
 
 ## Descrição do Projeto
 
-Aplicação Rails 8 completa para gestão de proponentes com cálculo automático de INSS, utilizando o ecossistema moderno de desenvolvimento incluindo Hotwire, Action Cable e o sistema de autenticação integrado do Rails 8.
+Aplicação Rails 8 completa para gestão de proponentes com cálculo automático de INSS, utilizando o ecossistema moderno de desenvolvimento incluindo Hotwire, Action Cable e o sistema de autenticação integrado do Rails 8 com Google OAuth2.
 
 ## Estrutura do Projeto (Atualizada para Rails 8)
 
@@ -73,7 +73,55 @@ Aplicação Rails 8 completa para gestão de proponentes com cálculo automátic
 - Redis 7+
 
 ### Instalação
+Obs: 
+# Configuração do Google OAuth2
 
+## 📋 Pré-requisitos
+- Acesso ao [Google Cloud Console](https://console.cloud.google.com/)
+- Arquivo `.env.example` na sua aplicação
+
+## 🔧 Passos para Configuração
+
+### 1. Criar Credenciais no Google Cloud
+1. Acesse o [Google Cloud Console](https://console.cloud.google.com/)
+2. Selecione ou crie um projeto
+3. Navegue até **APIs e Serviços > Credenciais**
+4. Clique em **"Criar Credenciais" > "ID do cliente OAuth"**
+5. Configure:
+   - **Tipo de aplicação**: Aplicação Web
+   - **URIs de redirecionamento autorizados**:
+     ```
+     http://localhost:3000/auth/google/callback
+     http://seu-site.com/auth/google/callback
+     ```
+
+### 2. Configurar o arquivo .env
+Copie o `.env.example` para `.env` e preencha:
+
+```env
+# Google OAuth
+GOOGLE_CLIENT_ID=seu-id-aqui.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=seu-segredo-aqui
+
+```
+
+### 3. Ativar APIs necessárias
+1. No Google Cloud Console, vá para **APIs e Serviços > Biblioteca**
+2. Ative:
+   - **Google+ API** (obrigatória para alguns sistemas legados)
+   - **People API** (para obter informações do perfil)
+
+## 🚨 Solução de Problemas Comuns
+
+| Problema | Solução |
+|----------|---------|
+| `Error 400: redirect_uri_mismatch` | Verifique se o URI no `.env` bate exatamente com o cadastrado no Google Cloud |
+| `Invalid client secret` | Recrie as credenciais e atualize no `.env` |
+| `Token expired` | Verifique o horário do servidor e o tempo de vida do token |
+
+``` 
+
+Este formato `.md` é ideal para documentação no GitHub ou em wikis de projeto. Você pode adaptar conforme necessidade.
 1. Clone o repositório:
    ```bash
    git clone https://github.com/seu-usuario/desconto-inss.git
@@ -101,6 +149,25 @@ Aplicação Rails 8 completa para gestão de proponentes com cálculo automátic
    ```bash
    bin/dev
    ```
+## Docker
+Para rodar a aplicação em um container Docker, siga os passos abaixo:
+
+1. Construa a imagem:
+   ```bash
+   docker-compose build
+   ```
+
+2. Inicie os containers:
+   ```bash
+   docker-compose up
+   ```
+
+3. Acesse a aplicação em:
+   ```
+   http://localhost:3000
+   ```
+
+---  
 ### Telas:
 
 1 - Login
