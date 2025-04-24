@@ -8,7 +8,7 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 10.times do
-  Employee.create!(
+  Employee.find_or_create_by!(
     name: Faker::Name.name,
     cpf: CPF.generate,
     birth_date: rand(18..60).years.ago,
@@ -18,12 +18,14 @@
     city: Faker::Address.city,
     state: 'SC',
     cep: '88000-000',
-    phones_attributes: [
-      { number: Faker::PhoneNumber.phone_number, phone_type: "personal" }
-    ],
     salary: rand(1000.0..6000.0).round(2),
     inss_discount: 0
-  )
+  ) do |employee|
+    employee.phones.build(
+      number: Faker::PhoneNumber.phone_number,
+      phone_type: "personal"
+    )
+  end
 end
 
 Employee.find_each do |p|
