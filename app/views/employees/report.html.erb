@@ -1,0 +1,39 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Relatório de Faixas Salariais</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Dados em Tabela</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Faixa Salarial</th>
+            <th>Quantidade</th>
+            <th>Percentual</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @ranges_data.each do |range| %>
+            <tr>
+              <td><%= range[:label] %></td>
+              <td><%= range[:count] %></td>
+              <td><%= number_to_percentage(range[:percentage], precision: 1) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  <div class="col-md-6">
+    <h3>Gráfico</h3>
+    <div style="height: 400px; width: 100%;">
+      <canvas id="salaryChart"
+              data-labels='<%= @ranges_data.map { |range| range[:label] }.to_json %>'
+              data-values='<%= @ranges_data.map { |range| range[:count] }.to_json %>'>
+      </canvas>
+    </div>
+  </div>
+
+  <%= javascript_include_tag 'employees/report_chart', defer: true %>
+
+  <%= link_to "Voltar", employees_path, class: "btn btn-secondary mt-3" %>

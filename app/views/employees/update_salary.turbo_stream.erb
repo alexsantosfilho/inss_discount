@@ -1,0 +1,7 @@
+<%= turbo_stream.replace dom_id(@employee) do %>
+  <%= render partial: "employee", locals: { employee: @employee } %>
+<% end %>
+
+<%= turbo_stream.replace "flash" do %>
+  <%= render "shared/flash", notice: "Salário atualizado e job disparado!" %>
+<% end %>

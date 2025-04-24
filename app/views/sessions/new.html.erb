@@ -1,0 +1,28 @@
+<div class="login-container">
+  <div class="logo-container">
+    <%= image_tag("logo.svg", alt: "Logo", class: "logo") %>
+  </div>
+
+  <div class="logo-text">
+    Desconto INSS <br> By Alexsandro Santos
+  </div>
+    <p class="credentials">Email: impulso@email.comm <br> Senha: senha1234</p>
+
+
+  <%= tag.div(flash[:alert], class: "alert") if flash[:alert] %>
+  <%= tag.div(flash[:notice], class: "notice") if flash[:notice] %>
+
+  <%= form_with url: session_path, html: { class: "login-form" } do |form| %>
+    <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address], class: "input-field" %>
+    
+    <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72, class: "input-field" %>
+    
+    <%= form.submit "Sign in", class: "submit-btn" %>
+  <% end %>
+
+
+<%= button_to "/auth/google_oauth2", method: :post, data: { turbo: false }, class: "google-login-button" do %>
+   <%= image_tag("google-logo.png", alt: "Google Icon", class: "google-icon") %> Continuar com Google
+<% end %>
+
+</div>

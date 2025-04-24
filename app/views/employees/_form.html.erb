@@ -1,0 +1,153 @@
+<%= form_with(model: employee, data: { controller: 'inss-calculator' }) do |form| %>
+  <% if employee.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(employee.errors.count, "erro") %> impediram este cadastro:</h4>
+      <ul>
+        <% employee.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="card-title">Dados Pessoais</h5>
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <%= form.label :name, "Nome Completo", class: "form-label" %>
+          <%= form.text_field :name, class: "form-control #{'is-invalid' if employee.errors[:name].any?}", required: true %>
+        </div>
+
+        <div class="col-md-6">
+          <%= form.label :cpf, "CPF", class: "form-label" %>
+          <%= form.text_field :cpf, class: "form-control #{'is-invalid' if employee.errors[:cpf].any?}", 
+                            data: { controller: "cpf" }, required: true %>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <%= form.label :birth_date, "Data de Nascimento", class: "form-label" %>
+          <%= form.date_field :birth_date, class: "form-control #{'is-invalid' if employee.errors[:birth_date].any?}", 
+                            max: Date.today, required: true %>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label :salary, "Salário (R$)", class: "form-label" %>
+          <div class="input-group">
+            <span class="input-group-text">R$</span>
+            <%= form.number_field :salary, step: 0.01, class: "form-control #{'is-invalid' if employee.errors[:salary].any?}", 
+                                data: { action: "input->inss-calculator#calculate", 
+                                        "inss-calculator-target": "salaryInput" }, required: true %>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label :inss_discount, "Desconto INSS (R$)", class: "form-label" %>
+          <div class="input-group">
+            <span class="input-group-text">R$</span>
+            <%= form.number_field :inss_discount, step: 0.01, class: "form-control", 
+                                data: { "inss-calculator-target": "discountInput" }, readonly: true %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-4">
+          <label class="form-label">Salário Líquido (R$)</label>
+          <div class="input-group">
+            <span class="input-group-text">R$</span>
+            <input type="text" class="form-control" 
+                  data-inss-calculator-target="netSalaryInput" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="card-title">Endereço</h5>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <%= form.label :address, "Logradouro", class: "form-label" %>
+        <%= form.text_field :address, class: "form-control #{'is-invalid' if employee.errors[:address].any?}", required: true %>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-md-2">
+          <%= form.label :number, "Número", class: "form-label" %>
+          <%= form.text_field :number, class: "form-control #{'is-invalid' if employee.errors[:number].any?}" %>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label :district, "Bairro", class: "form-label" %>
+          <%= form.text_field :district, class: "form-control #{'is-invalid' if employee.errors[:district].any?}" %>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label :city, "Cidade", class: "form-label" %>
+          <%= form.text_field :city, class: "form-control #{'is-invalid' if employee.errors[:city].any?}", required: true %>
+        </div>
+
+        <div class="col-md-2">
+          <%= form.label :state, "UF", class: "form-label" %>
+          <%= form.select :state, 
+                options_for_select(
+                  [["AC"], ["AL"], ["AM"], ["AP"], ["BA"], ["CE"], ["DF"], ["ES"], ["GO"],
+                  ["MA"], ["MG"], ["MS"], ["MT"], ["PA"], ["PB"], ["PE"], ["PI"], ["PR"],
+                  ["RJ"], ["RN"], ["RO"], ["RR"], ["RS"], ["SC"], ["SE"], ["SP"], ["TO"]],
+                  selected: employee.state || "SP"
+                ),
+                { include_blank: "Selecione" },
+                class: "form-select #{'is-invalid' if employee.errors[:state].any?}", 
+                required: true %>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <%= form.label :cep, "CEP", class: "form-label" %>
+        <%= form.text_field :cep, class: "form-control #{'is-invalid' if employee.errors[:cep].any?}", 
+                              data: { controller: "cep" }, required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="card-title">Contatos</h5>
+    </div>
+    <div class="card-body">
+      <div data-controller="nested-form">
+        <template data-nested-form-target="template">
+          <%= form.fields_for :phones, @employee.phones.build, child_index: "NEW_RECORD" do |phone_fields| %>
+            <%= render "phone_fields", form: phone_fields %>
+          <% end %>
+        </template>
+
+        <div data-nested-form-target="container">
+          <%= form.fields_for :phones do |phone_fields| %>
+            <%= render "phone_fields", form: phone_fields %>
+          <% end %>
+        </div>
+
+        <div class="d-grid">
+          <button type="button" class="btn btn-secondary btn-sm" data-action="nested-form#add">
+            <i class="bi bi-plus-circle"></i> Adicionar Telefone
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between mt-4">
+    <%= link_to "Cancelar", employees_path, class: "btn btn-outline-secondary" %>
+    <%= form.submit "Salvar", class: "btn btn-primary", data: { disable_with: "Salvando..." } %>
+  </div>
+<% end %>
+
+  <%= javascript_include_tag 'controllers/inss_calculator_controller', defer: true %>

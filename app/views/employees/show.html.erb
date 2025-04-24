@@ -1,0 +1,6 @@
+<h1><%= @employee.name %></h1>
+<p><%= @employee.cpf %></p>
+<p><%= number_to_currency(@employee.salary, unit: 'R$ ') %></p>
+<p><%= number_to_currency(@employee.inss_discount, unit: 'R$ ') %></p>
+
+<%= link_to 'Voltar', employees_path, class: 'btn btn-outline-primary' %>
