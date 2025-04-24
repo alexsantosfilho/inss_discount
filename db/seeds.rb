@@ -27,7 +27,7 @@
 end
 
 Employee.find_each do |p|
-  p.update(inss_discount: InssCalculator.calculate(p.salary))
+  p.update(inss_discount: Inss::CalculationService.call(p.salary))
 end
 
 User.find_or_create_by!(email_address: "impulso@email.com") do |user|
