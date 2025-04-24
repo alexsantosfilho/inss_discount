@@ -66,6 +66,8 @@ group :development, :test do
 
   gem "rspec-rails", "~> 7.1", ">= 7.1.1"
   gem "factory_bot_rails" # For test data
+  gem "database_cleaner-active_record"
+  gem "shoulda-matchers"
   gem "faker"  # For test data
   gem "cpf_cnpj"
 end
