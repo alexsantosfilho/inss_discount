@@ -248,7 +248,63 @@ Execute com:
 ```bash
 bundle exec rspec
 ```
+## Overcommit no Rails
+O **Overcommit** é uma ferramenta poderosa para automação de hooks de Git. Ela permite que você execute scripts e verificações antes de fazer commit, garantindo que o código siga padrões definidos e evitando a introdução de erros. No contexto do Ruby on Rails, o Overcommit pode ser configurado para rodar uma série de verificações úteis como:
 
+- Verificação de estilo de código (usando `RuboCop`)
+- Testes automatizados
+- Análise de dependências
+- Formatação do código (com `Prettier` ou `Standard`)
+
+### Instalação do Overcommit
+1. Adicione a gem ao seu Gemfile:
+   ```ruby
+   gem 'overcommit', require: false
+   ```
+
+2. Instale a gem:
+   ```bash
+   bundle install
+   ```
+
+3. Instale o Overcommit:
+   ```bash
+   overcommit --install
+   ```
+![Screenshot from 2025-03-19 20-53-17](https://github.com/user-attachments/assets/ce8a373d-8983-4d98-8676-33c649b98815)
+
+
+---
+
+## Verificação de Segurança com Brakeman
+O Brakeman foi utilizado para realizar uma análise estática de segurança no código do projeto. Abaixo estão os principais pontos verificados e os resultados obtidos:
+
+### Resultados da Análise
+1. **Vulnerabilidades de Injeção SQL**:
+   - **Status**: Nenhuma vulnerabilidade de injeção SQL foi detectada.
+   - **Recomendação**: Continuar utilizando métodos seguros de acesso ao banco de dados, como `ActiveRecord` queries.
+
+2. **Cross-Site Scripting (XSS)**:
+   - **Status**: Nenhuma vulnerabilidade de XSS foi detectada.
+   - **Recomendação**: Manter a sanitização de dados de entrada e a utilização de helpers como `h()` para escapar conteúdo HTML.
+
+3. **Cross-Site Request Forgery (CSRF)**:
+   - **Status**: Proteção CSRF está habilitada por padrão no Rails.
+   - **Recomendação**: Garantir que todas as requisições que modificam dados estejam protegidas por tokens CSRF.
+
+4. **Exposição de Dados Sensíveis**:
+   - **Status**: Nenhuma exposição de dados sensíveis foi detectada.
+   - **Recomendação**: Continuar utilizando variáveis de ambiente para armazenar credenciais e informações sensíveis.
+
+5. **Configurações de Segurança**:
+   - **Status**: Configurações de segurança básicas estão corretas.
+   - **Recomendação**: Revisar periodicamente as configurações de segurança do Rails e manter o framework atualizado.
+
+### Como Executar o Brakeman
+Para executar o Brakeman e verificar a segurança do código, execute no terminal do projeto o comando:
+```bash
+brakeman
+```
 ---
 
 O projeto foi desenvolvido utilizando as tecnologias mais modernas do ecossistema Ruby on Rails, demonstrando domínio completo da stack atual, incluindo Hotwire, Action Cable e o novo sistema de autenticação introduzido no Rails 8. Apesar de algumas melhorias ainda poderem ser implementadas — como uma melhor estruturação de pastas, versionamento e organização, especialmente na camada de JavaScript — o foco principal foi evidenciar minha capacidade full stack com Rails. Além disso, planejava incluir a documentação da API utilizando o Rswag, pra uma comunicação clara e padronizada para desenvolvedores.
